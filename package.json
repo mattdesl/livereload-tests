@@ -1,0 +1,40 @@
+{
+  "name": "livereload-tests",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Matt DesLauriers",
+    "email": "dave.des@gmail.com",
+    "url": "https://github.com/mattdesl"
+  },
+  "dependencies": {
+    "browserify": "^13.1.1",
+    "express": "^4.14.0",
+    "fast-html-parser": "^1.0.1",
+    "faye-websocket": "^0.11.0",
+    "pem": "^1.9.4",
+    "query-string": "^4.2.3",
+    "socket.io": "^1.7.2",
+    "socket.io-client": "^1.7.2",
+    "url-trim": "^1.0.0",
+    "uws": "^0.12.0",
+    "xhr": "^2.3.2"
+  },
+  "devDependencies": {
+    "budo": "^9.4.1"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mattdesl/livereload-tests.git"
+  },
+  "homepage": "https://github.com/mattdesl/livereload-tests",
+  "bugs": {
+    "url": "https://github.com/mattdesl/livereload-tests/issues"
+  }
+}

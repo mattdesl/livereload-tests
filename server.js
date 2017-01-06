@@ -13,7 +13,10 @@ budo.cli(process.argv.slice(2), {
   middleware: middleware
 }).on('connect', function (ev) {
   console.log('LiveReload connected.');
-  wss = new WebSocketServer({ server: ev.server });
+  wss = new WebSocketServer({
+    server: ev.server,
+    perMessageDeflate: false
+  });
   if (reloadOnStartup) {
     wss.once('connection', function () {
       reload();
@@ -25,8 +28,7 @@ budo.cli(process.argv.slice(2), {
   var url = path.relative(appDir, file).replace(new RegExp(path.sep, 'g'), '/');
   var ext = path.extname(file);
   if (ext === '.css') {
-    console.log("TRIGGER CSS", url);
-    broadcast({ event: 'css', url: url });
+    broadcast(url);
   } else {
     reload();
   }
@@ -34,14 +36,15 @@ budo.cli(process.argv.slice(2), {
 
 function reload () {
   if (!wss) return;
-  broadcast({ event: 'reload' });
+  broadcast();
 }
 
 function broadcast (data) {
   if (!wss) return;
-  data = JSON.stringify(data);
   wss.clients.forEach(function (client) {
-    client.send(data);
+    client.send(data || '', {
+      binary: false
+    });
   });
 }
 

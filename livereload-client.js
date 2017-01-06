@@ -53,18 +53,12 @@ function connect () {
     var wsProtocol = isSSL ? 'wss://' : 'ws://';
     var wsUrl = wsProtocol + host + '/livereload';
     var ws = new window.WebSocket(wsUrl);
+    var count = 0;
     ws.onmessage = function (event) {
-      var json;
-      try {
-        json = JSON.parse(event.data);
-      } catch (err) {
-        console.warn(err);
-      }
-
-      if (!json) return;
-      if (json.event === 'css') {
-        reloader.css(json.url);
-      } else if (json.event === 'reload') {
+      var url = event.data;
+      if (url && typeof url === 'string') {
+        reloader.css(url);
+      } else {
         reloader.page();
       }
     };
